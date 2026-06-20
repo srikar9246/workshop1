@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3f6900;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #9fff00;
+  --color-on-primary-container: #457200;
+  --color-brand-green: #9FFF00;
+  --color-base-bg: #EDEEF5;
+  --color-onyx: #1A1A1A;
+  --color-stone: #8E8E8E;
+
+  --color-surface-dim: #d6ddc7;
+  --color-surface-bright: #f5fce5;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f0f6e0;
+  --color-surface-container: #eaf1da;
+  --color-surface-container-high: #e4ebd5;
+  --color-surface-container-highest: #dee5cf;
+  --color-on-surface: #171d10;
+  --color-on-surface-variant: #404a34;
+  --color-inverse-surface: #2c3324;
+  --color-inverse-on-surface: #edf4dd;
+  --color-outline: #707b61;
+  --color-outline-variant: #c0cbad;
+  --color-secondary: #5f5e5e;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e2dfde;
+  --color-on-secondary-container: #636262;
+
+  --font-display-lg: 'Outfit', sans-serif;
+  --font-headline-xl: 'Outfit', sans-serif;
+  --font-headline-lg: 'Outfit', sans-serif;
+  --font-headline-md: 'Outfit', sans-serif;
+  --font-body-lg: 'Inter', sans-serif;
+  --font-body-md: 'Inter', sans-serif;
+  --font-body-sm: 'Inter', sans-serif;
+  --font-label-md: 'Inter', sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-[#EDEEF5] text-on-surface font-body-md antialiased overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display-lg font-semibold tracking-tight;
+  }
+}
+
+/* Selection overlay color styling */
+::selection {
+  background-color: #9fff00;
+  color: #000;
+}
+
+/* Glassmorphism Styles matching index mockup exactly */
+.glass-card {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 40px rgba(26, 26, 26, 0.04);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.5);
+  border-color: rgba(159, 255, 0, 0.5);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px -10px rgba(159, 255, 0, 0.12);
+}
+
+/* Glowing glass input fields */
+.input-glass {
+  background: rgba(255, 255, 255, 0.60);
+  border: 1px solid rgba(255, 255, 255, 0.30);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-glass:focus {
+  background: rgba(255, 255, 255, 0.80);
+  border-color: #9FFF00;
+  box-shadow: 0 0 0 4px rgba(159, 255, 0, 0.25);
+  outline: none;
+}
+
+/* Mockup-specific Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.stacked-carousel-item {
+  transition: all 0.5s ease;
+}
+
+.stacked-carousel-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  z-index: 10;
+}
+
+/* Hide scrollbar utility */
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.timeline-connector {
+  width: 0;
+  transition: width 1s ease-in-out;
+}
+
+.in-view .timeline-connector {
+  width: 100%;
+}

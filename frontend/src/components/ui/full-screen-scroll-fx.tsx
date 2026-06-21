@@ -612,12 +612,37 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           @media (max-width: 900px) {
             .fx-content {
-              grid-template-columns: 1fr; row-gap: 3vh;
+              grid-template-columns: 1fr;
+              row-gap: 2.5vh;
               place-items: center;
+              align-content: center;
             }
             .fx-left, .fx-right, .fx-center { height: auto; }
             .fx-left, .fx-right { justify-items: center; }
             .fx-track { transform: none !important; }
+
+            /* Hide inactive list items on mobile to avoid vertical stacking overflow */
+            .fx-item:not(.active) {
+              display: none !important;
+            }
+
+            .fx-left-item.active, .fx-right-item.active {
+              transform: none !important;
+              padding: 0 !important;
+              opacity: 0.85 !important;
+              font-size: clamp(0.9rem, 3.8vw, 1.1rem) !important;
+              letter-spacing: 0.1em;
+            }
+
+            .fx-left-item.active::before,
+            .fx-right-item.active::after {
+              display: none !important;
+            }
+
+            .fx-featured-title {
+              font-size: clamp(1.8rem, 7.5vw, 3rem) !important;
+              line-height: 1.25;
+            }
           }
         ` }} />
 

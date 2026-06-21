@@ -542,7 +542,7 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
           .fx-content {
             grid-column: 1 / 13;
             position: absolute; inset: 0;
-            display: grid; grid-template-columns: 1fr 1.3fr 1fr;
+            display: grid; grid-template-columns: 1.2fr 2.5fr 1.2fr;
             align-items: center;
             height: 100%;
             padding: 0 var(--fx-grid-px);
@@ -586,13 +586,15 @@ export const FullScreenScrollFX = forwardRef<HTMLDivElement, FullScreenFXProps>(
 
           .fx-center {
             display: grid; place-items: center; text-align: center; height: 60vh; overflow: hidden;
+            padding: 0 2rem;
           }
           .fx-featured { position: absolute; opacity: 0; visibility: hidden; }
           .fx-featured.active { opacity: 1; visibility: visible; }
           .fx-featured-title {
             margin: 0; color: var(--fx-text);
             font-weight: 900; letter-spacing: -0.01em;
-            font-size: clamp(2rem, 7.5vw, 6rem);
+            font-size: clamp(1.8rem, 5vw, 4.5rem);
+            line-height: 1.15;
           }
           .fx-word-mask { display: inline-block; overflow: hidden; vertical-align: middle; }
           .fx-word { display: inline-block; vertical-align: middle; }

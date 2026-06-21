@@ -1,11 +1,50 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 export default function Hero() {
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const toggleVideo = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      } else {
+        videoRef.current.play().then(() => {
+          setIsPlaying(true);
+        }).catch((err) => {
+          console.error("Video playback failed:", err);
+        });
+      }
+    }
+  };
+
+  // Sync state with actual video status (in case of autoplay blocking, low power mode, or manual pauses)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handlePlay = () => setIsPlaying(true);
+    const handlePause = () => setIsPlaying(false);
+
+    video.addEventListener('play', handlePlay);
+    video.addEventListener('pause', handlePause);
+
+    // Initial check (in case browser blocks autoplay)
+    setIsPlaying(!video.paused);
+
+    return () => {
+      video.removeEventListener('play', handlePlay);
+      video.removeEventListener('pause', handlePause);
+    };
+  }, []);
+
   return (
     <header className="relative min-h-[60vh] flex items-center pt-28 pb-16 overflow-hidden bg-[#EDEEF5]">
       {/* Immersive Video Background */}
       <div className="absolute inset-0 z-0">
         <video 
+          ref={videoRef}
           autoPlay 
           className="w-full h-full object-cover opacity-60 mix-blend-overlay" 
           loop 
@@ -45,9 +84,23 @@ export default function Hero() {
               </footer>
             </blockquote>
           </div>
+
+          {/* Video Control Button for Mobile */}
+          <div className="md:hidden mt-6 flex justify-center z-20">
+            <button
+              onClick={toggleVideo}
+              className="flex items-center gap-2.5 px-6 py-3 rounded-full border border-primary/20 bg-white/70 hover:bg-white/85 backdrop-blur-md text-[#171d10] font-headline-md font-bold text-xs uppercase tracking-wider shadow-[0_4px_25px_rgba(0,0,0,0.06)] transition-all duration-300 cursor-pointer active:scale-95 hover:shadow-[0_0_15px_rgba(159,255,0,0.3)]"
+            >
+              <span className="material-symbols-outlined text-lg text-primary select-none">
+                {isPlaying ? 'pause_circle' : 'play_circle'}
+              </span>
+              <span>{isPlaying ? 'Pause Background Video' : 'Play Background Video'}</span>
+            </button>
+          </div>
         </div>
 
       </div>
     </header>
   );
 }
+
